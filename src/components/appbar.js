@@ -16,14 +16,13 @@ const AppBar = () => {
 const styles = StyleSheet.create({
     container: {
         display: 'flex',
-        height: '50px',
+        height: 50,
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
         position: 'absolute',
         top:0,
         left:0,
-        width:'100%'
     }
 })
 

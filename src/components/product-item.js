@@ -21,25 +21,26 @@ const styles = StyleSheet.create({
     productItem: {
         marginTop: 8,
         marginBottom: 8,
-        width: 'calc(100% - 32px)',
+        marginLeft: 16,
+        marginRight: 16,
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row',
-        left: 16,
         backgroundColor: 'white',
-        borderRadius: '1rem',
-        height: 50
+        borderRadius: 16,
+        paddingTop: 5,
+        paddingBottom: 5,
     },
     productTitle: {
         flex: 1,
-        paddingLeft: '0.5rem',
-        fontSize: '1rem'
+        paddingLeft: 8,
+        fontSize: 16
     },
     editIconContainer: {
         backgroundColor: '#808080',
-        borderRadius: '100%',
-        marginRight: '0.5rem',
-        marginLeft: '0.5rem',
+        borderRadius: 25,
+        marginRight: 8,
+        marginLeft: 8,
         color: 'white',
     }
 })

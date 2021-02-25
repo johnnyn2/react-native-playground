@@ -1,17 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { ScrollView } from 'react-native';
 import ProductItem from '../components/product-item';
 
+const initState = {
+    products: []
+};
+
 const Home = ({navigation}) => {
-    const products = [
-        { title: 'しろくま'},
-        { title:  'ぺんぎん？'},
-        { title: 'とんかつ'},
-        { title: 'ねこ'},
-        { title: 'とかげ'},
-        { title: 'ふろしき'},
-        { title: 'えびふらいのしっぽ'}
-    ];
+    const [state, setState] = useState(initState);
+    useEffect(() => {
+        fetch('https://fakestoreapi.com/products')
+        .then(res => res.json())
+        .then(data => setState(prevState => ({...prevState, products: data})))
+        .catch(e => console.log(e))
+    }, [])
+
+    const {products} = state;
 
     return (
         <ScrollView>
