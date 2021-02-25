@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import ProductItem from '../components/product-item';
 
-const Home = () => {
+const Home = ({navigation}) => {
     const products = [
         { title: 'しろくま'},
         { title:  'ぺんぎん？'},
@@ -15,7 +15,7 @@ const Home = () => {
 
     return (
         <ScrollView>
-            {products.map((p, i) => <ProductItem key={i} id={i} title={p.title}/>)}
+            {products.map((p, i) => <ProductItem key={i} id={i} title={p.title} navigation={navigation}/>)}
         </ScrollView>
     );
 }
