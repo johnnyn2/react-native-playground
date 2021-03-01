@@ -1,21 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import { ScrollView } from 'react-native';
 import ProductItem from '../components/product-item';
+import { connect } from 'react-redux';
+import { setAllProducts } from '../redux/productActions';
 
-const initState = {
-    products: []
-};
-
-const Home = ({navigation}) => {
-    const [state, setState] = useState(initState);
+const Home = ({navigation, setAllProducts, products}) => {
     useEffect(() => {
         fetch('https://fakestoreapi.com/products')
         .then(res => res.json())
-        .then(data => setState(prevState => ({...prevState, products: data})))
+        .then(data => setAllProducts(data))
         .catch(e => console.log(e))
     }, [])
-
-    const {products} = state;
 
     return (
         <ScrollView>
@@ -24,6 +19,16 @@ const Home = ({navigation}) => {
     );
 }
 
+const mapStateToProps = state => {
+    return {
+        products: state.products || [],
+    };
+}
 
+const mapDispatchToProps = dispatch => {
+    return {
+        setAllProducts: products => dispatch(setAllProducts(products))
+    }
+}
 
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
