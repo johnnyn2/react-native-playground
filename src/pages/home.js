@@ -11,9 +11,7 @@ const Home = ({navigation, fetchAllProducts, clearProducts, data, loading, error
     useFocusEffect(
         useCallback(() => {
             fetchAllProducts();
-            return () => {
-                clearProducts();
-            };
+            return () => clearProducts();
         }, [])
     )
 
@@ -42,7 +40,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => state.products;
 
 const mapDispatchToProps = dispatch => ({
-    fetchAllProducts: () => dispatch(fetchAllProducts()),
+    fetchAllProducts: () => dispatch(fetchAllProducts(dispatch)),
     clearProducts: () => dispatch(clearProducts()),
 })
 
