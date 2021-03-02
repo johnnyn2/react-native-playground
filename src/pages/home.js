@@ -1,11 +1,21 @@
-import React, {useEffect} from 'react';
+import React, {useCallback} from 'react';
 import { ScrollView, Text, ActivityIndicator, View, StyleSheet } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native'
 import ProductItem from '../components/product-item';
 import { connect } from 'react-redux';
-import { fetchAllProducts } from '../redux/product/productActions';
+import { fetchAllProducts, clearProducts } from '../redux/product/productActions';
 
-const Home = ({navigation, fetchAllProducts, data, loading, error}) => {
-    useEffect(() => fetchAllProducts(), [])
+const Home = ({navigation, fetchAllProducts, clearProducts, data, loading, error}) => {
+    /** same as the componentDidMount, componentWillUnmount in React. 
+     Since the stack is not actually mounted / unmounted in react-navigation stack/tabs */
+    useFocusEffect(
+        useCallback(() => {
+            fetchAllProducts();
+            return () => {
+                clearProducts();
+            };
+        }, [])
+    )
 
     return (
         loading?
@@ -33,6 +43,7 @@ const mapStateToProps = state => state.products;
 
 const mapDispatchToProps = dispatch => ({
     fetchAllProducts: () => dispatch(fetchAllProducts()),
+    clearProducts: () => dispatch(clearProducts()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
