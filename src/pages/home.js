@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { ScrollView, Text, ActivityIndicator, View, StyleSheet } from 'react-native';
 import ProductItem from '../components/product-item';
 import { connect } from 'react-redux';
-import { fetchAllProducts } from '../redux/productActions';
+import { fetchAllProducts } from '../redux/product/productActions';
 
 const Home = ({navigation, fetchAllProducts, data, loading, error}) => {
     useEffect(() => fetchAllProducts(), [])
