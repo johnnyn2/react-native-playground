@@ -21,7 +21,7 @@ const Home = ({navigation, setAllProducts, products}) => {
 
 const mapStateToProps = state => {
     return {
-        products: state.products || [],
+        products: state.products.data || [],
     };
 }
 
