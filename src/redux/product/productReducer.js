@@ -1,12 +1,20 @@
-import { FETCH_ALL_PRODUCTS, SET_ALL_PRODUCTS, FETCH_PRODUCTS_ERROR, CLEAR_ALL_PRODUCTS } from './productTypes';
+import {
+    FETCH_ALL_PRODUCTS,
+    SET_ALL_PRODUCTS,
+    FETCH_PRODUCTS_ERROR,
+    CLEAR_ALL_PRODUCTS,
+    SET_ACTIVE_PRODUCT_ID
+} from './productTypes';
 
 const initState = {
     loading: true,
     data: [],
-    error: {}
+    error: {},
+    activeProductId: null
 }
 
 const productReducer = (state = initState, action) => {
+    const {payload} = action;
     switch(action.type) {
         case FETCH_ALL_PRODUCTS: return {
             ...state,
@@ -15,18 +23,22 @@ const productReducer = (state = initState, action) => {
         case SET_ALL_PRODUCTS: return {
             ...state,
             loading: false,
-            data: action.payload,
+            data: payload,
         }
         case FETCH_PRODUCTS_ERROR: return {
             ...state,
             loading: false,
-            error: action.payload,
+            error: payload,
         }
         case CLEAR_ALL_PRODUCTS: return {
             ...state,
             loading: true,
             data: [],
             error: {}
+        }
+        case SET_ACTIVE_PRODUCT_ID: return {
+            ...state,
+            activeProductId: payload
         }
         default: return state;
     }

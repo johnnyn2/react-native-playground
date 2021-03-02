@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import { ScrollView, Text, ActivityIndicator, View, StyleSheet } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native';
 import ProductItem from '../components/product-item';
 import { connect } from 'react-redux';
 import { fetchAllProducts, clearProducts } from '../redux/product/productActions';

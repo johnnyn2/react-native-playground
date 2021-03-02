@@ -1,21 +1,31 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { connect } from 'react-redux';
 import { IconButton, Colors } from 'react-native-paper';
+import { setActiveProductId } from '../redux/product/productActions';
 
 
-const ProductItem = ({title, id, navigation}) => {
+const ProductItem = ({title, id, navigation, setActiveProductId}) => {
+    const handleViewProduct = () => {
+        setActiveProductId(id);
+        navigation.navigate('ViewProduct');
+    }
+
     const { productItem, productTitle, editIconContainer } = styles;
 
     return (
         <View style={productItem}>
             <Text style={productTitle}>{title}</Text>
-            <Ionicons name='ios-information-circle' size={30} color='grey' onPress={() => navigation.navigate('ViewProduct')}/>
+            <Ionicons name='ios-information-circle' size={30} color='grey' onPress={() => handleViewProduct()}/>
             <IconButton style={editIconContainer} color="white" icon="pencil" size={16} onPress={() => navigation.navigate('EditProduct')} />
         </View>
     );
 }
+
+const mapDispatchToProps = (dispatch) => ({
+    setActiveProductId: id => dispatch(setActiveProductId(id))
+})
 
 const styles = StyleSheet.create({
     productItem: {
@@ -45,4 +55,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ProductItem;
+export default connect(null, mapDispatchToProps)(ProductItem);

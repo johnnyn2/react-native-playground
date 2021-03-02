@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { SET_ALL_PRODUCTS, FETCH_ALL_PRODUCTS, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCTS_ERROR, CLEAR_ALL_PRODUCTS } from './productTypes';
+import {
+    SET_ALL_PRODUCTS,
+    FETCH_ALL_PRODUCTS,
+    FETCH_PRODUCTS_ERROR,
+    CLEAR_ALL_PRODUCTS,
+    SET_ACTIVE_PRODUCT_ID
+} from './productTypes';
 
 export const fetchAllProducts = (dispatch) => {
     axios.get('https://fakestoreapi.com/products')
@@ -24,4 +30,9 @@ const setAllProducts = products => ({
 const fetchProductsFailure = error => ({
     type: FETCH_PRODUCTS_ERROR,
     payload: error,
+})
+
+export const setActiveProductId = (id) => ({
+    type: SET_ACTIVE_PRODUCT_ID,
+    payload: id,
 })
