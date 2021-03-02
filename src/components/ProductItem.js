@@ -9,7 +9,7 @@ import { setActiveProductId } from '../redux/product/productActions';
 const ProductItem = ({title, id, navigation, setActiveProductId}) => {
     const handleViewProduct = () => {
         setActiveProductId(id);
-        navigation.navigate('ViewProduct');
+        navigation.navigate('ViewProduct', {id,});
     }
 
     const { productItem, productTitle, editIconContainer } = styles;

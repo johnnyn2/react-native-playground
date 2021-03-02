@@ -2,9 +2,9 @@ import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation-bottom-tabs-no-warnings';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Home from '../pages/home';
-import CreateProduct from '../pages/create-product';
-import Settings from '../pages/settings';
+import Home from '../pages/Home';
+import CreateProduct from '../pages/CreateProduct';
+import Settings from '../pages/Settings';
 
 const Tab = createBottomTabNavigator();
 
