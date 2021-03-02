@@ -1,7 +1,7 @@
 import { FETCH_ALL_PRODUCTS, SET_ALL_PRODUCTS, FETCH_PRODUCTS_ERROR } from './productTypes';
 
 const initState = {
-    loading: false,
+    loading: true,
     data: [],
     error: {}
 }

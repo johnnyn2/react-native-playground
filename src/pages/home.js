@@ -1,34 +1,32 @@
 import React, {useEffect} from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import ProductItem from '../components/product-item';
 import { connect } from 'react-redux';
+import { fetchAllProducts } from '../redux/productActions';
 import { setAllProducts } from '../redux/productActions';
 
-const Home = ({navigation, setAllProducts, products}) => {
+const Home = ({navigation, fetchAllProducts, data, loading, error}) => {
     useEffect(() => {
-        fetch('https://fakestoreapi.com/products')
-        .then(res => res.json())
-        .then(data => setAllProducts(data))
-        .catch(e => console.log(e))
+        fetchAllProducts();
     }, [])
 
     return (
         <ScrollView>
-            {products.map((p, i) => <ProductItem key={i} id={i} title={p.title} navigation={navigation}/>)}
+            {loading?
+                <Text>Loading...</Text> :
+                error.message ?
+                    <Text>Error in fetching products</Text>
+                :
+                    data.map((p, i) => <ProductItem key={i} id={i} title={p.title} navigation={navigation}/>)
+            }
         </ScrollView>
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        products: state.products.data || [],
-    };
-}
+const mapStateToProps = state => state.products;
 
-const mapDispatchToProps = dispatch => {
-    return {
-        setAllProducts: products => dispatch(setAllProducts(products))
-    }
-}
+const mapDispatchToProps = dispatch => ({
+    fetchAllProducts: () => dispatch(fetchAllProducts()),
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
