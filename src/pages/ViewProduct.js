@@ -3,6 +3,7 @@ import {ScrollView, Text, StyleSheet, Image, ActivityIndicator, View, Dimensions
 import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import AppText from '../components/AppText';
+import AutoScaleImage from '../components/AutoScaleImage';
 
 const initState = {
     isLoading: true,
@@ -30,11 +31,11 @@ const ViewProduct = ({route}) => {
         }, [])
     )
 
-    const { isLoading, product, error, imageWidth, imageHeight } = state;
+    const { isLoading, product, error } = state;
 
     const { id, title, price, description, category, image} = product;
 
-    const {container, row, item, heading, header}  = styles;
+    const {scrollContainer, container, row, item, heading, header, info}  = styles;
 
     return (
         isLoading ?
@@ -44,27 +45,11 @@ const ViewProduct = ({route}) => {
             typeof error !== 'undefined' && error !== null && error.message ?
                 <Text>Fail to load product information</Text>
             :
-            <ScrollView>
+            <ScrollView style={scrollContainer}>
                 <View style={{flex: 1, justifyContent: 'center'}}>
-                    <Image
-                        style={{height: imageHeight, width: imageWidth, flex: 1, marginLeft: Dimensions.get('window').width / 4}}
-                        onError={() => console.log('fail to load image')}
-                        source={{uri: image}}
-                        onLayout={(e) => {
-                            const containerWidth = e.nativeEvent.layout.width;
-                            Image.getSize(image, (width, height) => {
-                                const imageWidth  = Dimensions.get('window').width / 2;
-                                const ratio  = imageWidth / width;
-                                setState(prevState => ({
-                                    ...prevState,
-                                    imageWidth,
-                                    imageHeight: height * ratio,
-                                }))
-                            })
-                        }}
-                    />
+                    <AutoScaleImage uri={image}/>
                 </View>
-                <View>
+                <View style={info}>
                     <AppText style={header} text='Detailed Information'/>
                     <View style={row}>
                         <AppText style={heading} text='Id'/><AppText style={item} text={id}/>
@@ -87,15 +72,21 @@ const ViewProduct = ({route}) => {
 }
 
 const styles = StyleSheet.create({
+    scrollContainer: {
+        height: Dimensions.get('window').height - 64,
+        backgroundColor: '#fff'
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
     },
     row: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginTop: 5,
+        marginBottom: 5
     },
     item: {
-        flex: 1
+        width: (Dimensions.get('window').width - 40) / 2
     },
     heading: {
         fontWeight: 'bold',
@@ -104,6 +95,12 @@ const styles = StyleSheet.create({
     header: {
         fontSize: 20,
         fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    info: {
+        marginLeft: 20,
+        marginRight: 20,
+        marginTop: 15
     }
 })
 

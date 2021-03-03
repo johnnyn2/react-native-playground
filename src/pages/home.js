@@ -25,7 +25,7 @@ const Home = ({navigation, fetchAllProducts, clearProducts, data, loading, error
                 <Text>Error in fetching products</Text>
             :
                 <ScrollView>
-                    {data.map((p, i) => <ProductItem key={i} id={i} title={p.title} navigation={navigation}/>)}
+                    {data.map((p, i) => <ProductItem key={i} id={p.id} title={p.title} navigation={navigation}/>)}
                 </ScrollView>
     );
 }

@@ -8,7 +8,7 @@ const AppText = (props) => {
 
 AppText.defaultProps = {
     defaultStyles: {
-        fontFamily: 'Roboto',
+        
     }
 }
 
