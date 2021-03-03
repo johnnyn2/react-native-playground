@@ -18,8 +18,8 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={MenuBar}/>
-          <Stack.Screen name="ViewProduct" component={ViewProduct}/>
-          <Stack.Screen name="EditProduct" component={EditProduct}/>
+          <Stack.Screen name="View" component={ViewProduct}/>
+          <Stack.Screen name="Edit" component={EditProduct}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
