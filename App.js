@@ -17,9 +17,20 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={MenuBar}/>
-          <Stack.Screen name="View" component={ViewProduct}/>
-          <Stack.Screen name="Edit" component={EditProduct}/>
+          <Stack.Screen
+            name="Home"
+            component={MenuBar}
+          />
+          <Stack.Screen
+            name="View"
+            component={ViewProduct}
+            options={({route}) => ({title: route.params.title})}
+          />
+          <Stack.Screen
+            name="Edit"
+            component={EditProduct}
+            options={({route}) => ({title: route.params.title})}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

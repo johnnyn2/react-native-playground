@@ -7,9 +7,9 @@ import { setActiveProductId } from '../redux/product/productActions';
 
 
 const ProductItem = ({title, id, navigation, setActiveProductId}) => {
-    const handleViewProduct = () => {
+    const handleActiveProduct = () => {
         setActiveProductId(id);
-        navigation.navigate('ViewProduct', {id,});
+        navigation.navigate('View', {id, title});
     }
 
     const { productItem, productTitle, editIconContainer } = styles;
@@ -17,8 +17,8 @@ const ProductItem = ({title, id, navigation, setActiveProductId}) => {
     return (
         <View style={productItem}>
             <Text style={productTitle}>{title}</Text>
-            <Ionicons name='ios-information-circle' size={30} color='grey' onPress={() => handleViewProduct()}/>
-            <IconButton style={editIconContainer} color="white" icon="pencil" size={16} onPress={() => navigation.navigate('EditProduct')} />
+            <Ionicons name='ios-information-circle' size={30} color='grey' onPress={() => handleActiveProduct()}/>
+            <IconButton style={editIconContainer} color="white" icon="pencil" size={16} onPress={() => navigation.navigate('Edit', {title,})} />
         </View>
     );
 }
