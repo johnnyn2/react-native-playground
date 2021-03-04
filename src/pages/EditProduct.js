@@ -50,28 +50,34 @@ const EditProduct = ({route}) => {
         }))
     }
 
+    const postUpdateProduct = (data) => {
+        setState(prevState => ({...prevState, isSaving: false, isSaved: true}));
+        setTimeout(() => setState(prevState => ({...prevState, isSaved: false, btnText: 'SAVE'})), 3000);
+    }
+
     const saveProduct = () => {
         setState(prevState => ({
             ...prevState,
             btnText: '',
-            isSaved: true,
+            isSaving: true,
         }))
-        setTimeout(() => setState(prevState => ({...prevState, btnText: 'SAVE', isSaved: false})), 3000);
+        fetch(`https://fakestoreapi.com/products/${route.params.id}`, {
+            method: 'PUT',
+            body: JSON.stringify(state.product),
+        })
+        .then(res => res.json())
+        .then(data => postUpdateProduct(data))
+        .catch(err => postUpdateProduct(err))
     }
 
-    const { isLoading, product, error, isSaved, btnText } = state;
+    const { isLoading, product, error, isSaved, isSaving, btnText } = state;
 
     const { id, title, price, description, category, image} = product;
 
     const {scrollContainer, container, row, item, heading, header, info}  = styles;
 
-    const btnIcon = isSaved ? (
-        <Icon
-            name='check-circle'
-            size={20}
-            color='white'
-            style={{ marginLeft: 5 }}
-        />
+    const btnIcon = isSaving ? <ActivityIndicator color='white' /> : isSaved ? (
+        <Icon name='check-circle' color='white' size={20}/>
     ) : null;
 
     return (
@@ -95,6 +101,7 @@ const EditProduct = ({route}) => {
                             onChange={e => handleChange(e)}
                             label='Name'
                             inputStyle={{outline: 'none'}}
+                            disabled={isSaving}
                         />
                     </View>
                     <View style={row}>
@@ -106,6 +113,7 @@ const EditProduct = ({route}) => {
                             nativeID='price'
                             label='Price'
                             inputStyle={{outline: 'none'}}
+                            disabled={isSaving}
                         />
                     </View>
                     <View style={row}>
@@ -117,6 +125,7 @@ const EditProduct = ({route}) => {
                             nativeID='description'
                             label='Description'
                             inputStyle={{outline: 'none'}}
+                            disabled={isSaving}
                         />
                     </View>
                     <View style={row}>
@@ -128,6 +137,7 @@ const EditProduct = ({route}) => {
                             nativeID='category'
                             label='Category'
                             inputStyle={{outline: 'none'}}
+                            disabled={isSaving}
                         />
                     </View>
                     
