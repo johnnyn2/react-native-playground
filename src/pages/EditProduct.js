@@ -22,7 +22,7 @@ const initState = {
     error: null,
     isSaved: false,
     isSaving: false,
-    btnText: 'SAVE'
+    btnText: 'Save'
 };
 
 const EditProduct = ({route}) => {
@@ -102,11 +102,11 @@ const EditProduct = ({route}) => {
                             label='Name'
                             inputStyle={{outline: 'none'}}
                             disabled={isSaving}
+                            autoFocus={true}
                         />
                     </View>
                     <View style={row}>
                         <Input
-                            placeholder='Price'
                             value={price}
                             onChange={e => handleChange(e)}
                             leftIcon={{type: 'font-awesome', name: 'dollar'}}
@@ -118,7 +118,6 @@ const EditProduct = ({route}) => {
                     </View>
                     <View style={row}>
                         <Input
-                            placeholder='Description'
                             value={description}
                             onChange={e => handleChange(e)}
                             leftIcon={{type: 'font-awesome', name: 'info-circle'}}
@@ -130,7 +129,6 @@ const EditProduct = ({route}) => {
                     </View>
                     <View style={row}>
                         <Input
-                            placeholder='category'
                             value={category}
                             onChange={e => handleChange(e)}
                             leftIcon={{type: 'font-awesome', name: 'list'}}
@@ -142,7 +140,7 @@ const EditProduct = ({route}) => {
                     </View>
                     
                 </View>
-                <View style={[row, {justifyContent: 'center', alignItems: 'center',}]}>
+                <View style={[row, {justifyContent: 'center', alignItems: 'center'}]}>
                     <Button
                         icon={
                             btnIcon
