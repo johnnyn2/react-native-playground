@@ -24,10 +24,15 @@ const ViewProduct = ({route}) => {
     const [state, setState] = useState(initState);
     useFocusEffect(
         useCallback(() => {
-            axios.get(`https://fakestoreapi.com/products/${route.params.id}`)
+            let source = axios.CancelToken.source();
+            let config = { cancelToken: source.token };
+            axios.get(`https://fakestoreapi.com/products/${route.params.id}`, config)
                 .then(res => setState(prevState => ({ ...prevState, isLoading: false, product: res.data })))
-                .then(error => setState(prevState => ({...prevState, isLoading: false, error,})))
-            return () => setState(initState);
+                .catch(error => console.log(error))
+            return () => {
+                source.cancel();
+                setState(initState);
+            }
         }, [])
     )
 

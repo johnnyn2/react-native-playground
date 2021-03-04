@@ -7,9 +7,12 @@ import {
     SET_ACTIVE_PRODUCT_ID
 } from './productTypes';
 
-export const fetchAllProducts = (dispatch) => {
+export const fetchAllProducts = (dispatch, cb) => {
     axios.get('https://fakestoreapi.com/products')
-        .then(res => dispatch(setAllProducts(res.data)))
+        .then(res => {
+            dispatch(setAllProducts(res.data));
+            cb();
+        })
         .catch(err => dispatch(fetchProductsFailure(err)))
     return fetchingProducts();
 }
