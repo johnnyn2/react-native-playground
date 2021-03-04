@@ -58,6 +58,8 @@ const CreateProduct = () => {
                     }
                 } 
             })()
+
+            return () => setState(initState);
         }, [])
     )
 
@@ -65,7 +67,24 @@ const CreateProduct = () => {
         const {id, value} = e.target;
         const {result, errMsg} = isValidInput(id, value);
         setState(prevState => {
-            const newState = {...prevState};
+            const newState = {
+                ...prevState,
+                errorObj: {
+                    ...prevState.errorObj,
+                    product: {
+                        ...prevState.errorObj.product
+                    }
+                },
+                errorTxt: {
+                    ...prevState.errorTxt,
+                    product: {
+                        ...prevState.errorTxt.product,
+                    }
+                },
+                product: {
+                    ...prevState.product,
+                }
+            };
             newState.product[id] = value;
             newState.errorObj.product[id] = !result;
             newState.errorTxt.product[id] = errMsg;
